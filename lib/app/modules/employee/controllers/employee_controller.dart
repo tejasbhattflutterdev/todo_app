@@ -4,12 +4,12 @@ import 'package:todo_app_example/app/modules/employee/repository/employee_repo.d
 
 class EmployeeController extends GetxController {
   EmployeeRepository empRepo = EmployeeRepository();
-  final List<EmployeeModal> empList = <EmployeeModal>[].obs;
+  Rx<EmployeeModal> empData = EmployeeModal().obs;
   fetchAllEmployees() async {
     final eData = await empRepo.getAllEployees();
     if (eData != null) {
-      empList.assignAll(eData);
-      update();
+      empData.value = eData;
+      // update();
     }
   }
 

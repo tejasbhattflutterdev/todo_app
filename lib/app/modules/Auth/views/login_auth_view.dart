@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:todo_app_example/app/modules/home/views/home_view.dart';
+import 'package:todo_app_example/app/routes/app_pages.dart';
 import 'package:todo_app_example/widgets/w_text_form_field.dart';
 import 'package:todo_app_example/widgets/widget_const.dart';
 
@@ -48,11 +50,13 @@ class AuthView extends GetView<AuthController> {
                     height: Wconst.size20,
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      controller.loginForToDo(
-                        email: 'kinjal.r@rupiya.app',
-                        password: 'kinjal.rupiya@123',
+                    onPressed: () async {
+                      await controller.loginForToDo(
+                        email: 'tejas.b@rupiya.app',
+                        password: '12345678',
                       );
+                      // if (isSuccess == true) {
+                      // }
                       log('Success');
                     },
                     child: const Text(
