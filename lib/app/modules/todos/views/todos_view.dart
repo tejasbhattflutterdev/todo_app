@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_app_example/app/modules/todos/controllers/todos_controller.dart';
+import 'package:todo_app_example/widgets/personal_todo_info.dart';
 
 class PersonalTodoView extends StatelessWidget {
   final TodosController controller = Get.put(TodosController());
@@ -19,19 +20,43 @@ class PersonalTodoView extends StatelessWidget {
             return ListView.builder(
               itemCount: toDoData.length,
               itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    Text(toDoData[index].employeeId.toString()),
-                    Text(toDoData[index].managerId.toString()),
-                    Text(toDoData[index].deadline.toString()),
-                    Text(toDoData[index].work.toString()),
-                  ],
+                return GestureDetector(
+                  onTap: () {
+                    controller.updateData(
+                      toDoId: toDoData[index].id!,
+                      empId: toDoData[index].employeeId!,
+                      managerId: toDoData[index].managerId!,
+                    );
+                  },
+                  onLongPress: () {
+                    controller.deleteParticularTodo(
+                        todoWorkId: toDoData[index].id!);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 18,
+                      right: 18,
+                      top: 15,
+                      bottom: 15,
+                    ),
+                    child: Column(
+                      children: [
+                        PersnalToDoInfo(
+                          createdDate: toDoData[index].createdDate,
+                          updatedDate: toDoData[index].updatedDate,
+                          empId: toDoData[index].employeeId.toString(),
+                          toDoId: toDoData[index].id.toString(),
+                          workTitle: toDoData[index].work,
+                        ),
+                      ],
+                    ),
+                  ),
                 );
               },
             );
           } else {
             // Handle the case where empData is null (optional)
-            return Center(child: Text('No data available'));
+            return const Center(child: Text('No data available'));
           }
         },
       ),

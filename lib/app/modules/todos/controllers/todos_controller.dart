@@ -8,6 +8,18 @@ class TodosController extends GetxController {
   TodoRepository todoRepository = TodoRepository();
   Rx<PersonalTodoResponse> toDoData = PersonalTodoResponse().obs;
 
+  updateData(
+      {required int toDoId, required int empId, required int managerId}) async {
+    await todoRepository.updateTodo(
+        toDoId: toDoId, empId: empId, managerId: managerId);
+    fetchPersonalTodo(id: storage.read('EmployeeId'));
+  }
+
+  deleteParticularTodo({required int todoWorkId}) async {
+    await todoRepository.deleteTodo(toDoId: todoWorkId);
+    fetchPersonalTodo(id: storage.read('EmployeeId'));
+  }
+
   insertTodo() async {
     await todoRepository.createTodo();
     fetchPersonalTodo(id: storage.read('EmployeeId'));

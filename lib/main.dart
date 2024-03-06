@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:todo_app_example/widgets/personal_todo_info.dart';
 
 import 'app/routes/app_pages.dart';
 
@@ -12,6 +13,7 @@ void main() async {
       title: "Application",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      //home: PersnalToDoInfo(),
     ),
   );
 }
