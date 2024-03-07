@@ -1,15 +1,23 @@
 import 'dart:developer';
 
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
+
 import 'package:todo_app_example/app/const/api_const.dart';
 import 'package:todo_app_example/app/core/call_of_api/api_call.dart';
+import 'package:todo_app_example/app/core/call_of_api/custom_storage.dart';
+import 'package:todo_app_example/app/data/insert_to_do_modal.dart';
 import 'package:todo_app_example/app/data/todo_personal_res.dart';
+import 'package:todo_app_example/app/modules/todos/controllers/todos_controller.dart';
 
 class TodoRepository {
   //GetStorage strg = GetStorage();
+  //final strg = GetStorage();
+  //TodosController todosController = Get.put(TodosController());
+  //TodoSharedPrefStorage myPrefs = TodoSharedPrefStorage();
   PersonalTodoResponse todoResponse = PersonalTodoResponse();
-
+  List<insert_todo_modal> insertedList = [];
   String createdDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
   final storg = GetStorage();
@@ -32,7 +40,51 @@ class TodoRepository {
     return todoResponse;
   }
 
-  Future createTodo() async {
+  createTodoWhenNoConnection({
+    required int empId,
+    required int managerId,
+    required String createdDate,
+    required String toDoWork,
+    required String completedDate,
+    required String reason,
+    required int deadLine,
+    required String isDeleted,
+  }) {
+    insertedList.addAll([
+      insert_todo_modal(
+        completionDate: completedDate,
+        employeeId: empId,
+        managerId: managerId,
+        work: toDoWork,
+        createdDate: createdDate,
+        deadline: deadLine,
+        isdeleted: isDeleted,
+        reason: reason,
+      )
+    ]);
+    log('=========No connection todo has been inserted');
+    log('=========EmployeeId ${insertedList[0].employeeId}');
+    log('=========Manager Id ${insertedList[0].managerId}');
+    log('=========Length Of ToDo List = ${insertedList.length.toString()}');
+    TodoSharedPrefStorage.saveTodos(insertedList);
+
+    //dataStorage.saveCustomList(insertedList);
+    //todosController.listPersonalData = insertedList;
+  }
+
+  //storeDataInPrefs(List<insert_todo_modal> list) async {}
+
+  Future createTodo({
+    required int empId,
+    required int managerId,
+    required String createdDate,
+    required String toDoWork,
+    required String completedDate,
+    required String reason,
+    required int deadLine,
+    required String isDeleted,
+  }) async {
+    //List<PersonalTodoResponse> myListResponse = [];
     final toDoPostHeader = {
       'accept': 'application/json',
       'Tra-ID': storg.read('trx_id'),
@@ -43,12 +95,12 @@ class TodoRepository {
     final toDoPostData = {
       "employee_id": storg.read('EmployeeId'),
       "manager_id": 43,
-      "created_date": createdDate,
-      "work": "work to be post",
-      "deadline": 10,
+      "created_date": "2024-03-09",
+      "work": "toDoWork",
+      "deadline": deadLine,
       "completion_date": "2025-02-09",
-      "isdeleted": "false",
-      "reason": "reason"
+      "isdeleted": 'false',
+      "reason": 'reason',
     };
 
     await ApiCall.instance.restMainApi(

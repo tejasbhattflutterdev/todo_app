@@ -5,10 +5,10 @@ enum MethodType {
   delete,
 }
 
-enum ConnectivityResult {
-  wifi,
-  mobile,
-}
+// enum ConnectivityResult {
+//   wifi,
+//   mobile,
+// }
 
 class ApiUrls {
   static const baseURL = "http://192.168.60.101:61000/rupiya/v1";

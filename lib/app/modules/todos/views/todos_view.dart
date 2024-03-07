@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todo_app_example/app/modules/network/controllers/network_controller_.dart';
 import 'package:todo_app_example/app/modules/todos/controllers/todos_controller.dart';
+import 'package:todo_app_example/app/modules/todos/views/todos_add.dart';
 import 'package:todo_app_example/widgets/personal_todo_info.dart';
 
 class PersonalTodoView extends StatelessWidget {
   final TodosController controller = Get.put(TodosController());
+  //final NetworkController networkController = Get.put(NetworkController());
   PersonalTodoView({super.key});
 
   @override
@@ -63,7 +66,7 @@ class PersonalTodoView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          controller.insertTodo();
+          Get.to(AddTodos());
         },
       ),
     );

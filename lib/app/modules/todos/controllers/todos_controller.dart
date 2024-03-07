@@ -1,13 +1,18 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:todo_app_example/app/data/insert_to_do_modal.dart';
 import 'package:todo_app_example/app/data/todo_personal_res.dart';
 import 'package:todo_app_example/app/modules/todos/repository/to_do_repo.dart';
 
 class TodosController extends GetxController {
+  RxBool isConnected = false.obs;
   GetStorage storage = GetStorage();
   TodoRepository todoRepository = TodoRepository();
   Rx<PersonalTodoResponse> toDoData = PersonalTodoResponse().obs;
-
+  List<insert_todo_modal> listPersonalData = <insert_todo_modal>[].obs;
+  List<insert_todo_modal> finalListPersonalData = <insert_todo_modal>[].obs;
   updateData(
       {required int toDoId, required int empId, required int managerId}) async {
     await todoRepository.updateTodo(
@@ -20,8 +25,40 @@ class TodosController extends GetxController {
     fetchPersonalTodo(id: storage.read('EmployeeId'));
   }
 
-  insertTodo() async {
-    await todoRepository.createTodo();
+  // Future createTodoWhenNoInternet() async {
+  //   storage.write('listPersonalData', listPersonalData);
+  // }
+
+  insertTodo(
+      {required int empid,
+      required int manageId,
+      required String completedDate,
+      required String createdDate,
+      required String wrk,
+      required String reason,
+      required int deadLine,
+      required String isDeleted}) async {
+    isConnected.value == true
+        ? await todoRepository.createTodo(
+            deadLine: deadLine,
+            empId: empid,
+            managerId: manageId,
+            completedDate: completedDate,
+            createdDate: createdDate,
+            toDoWork: wrk,
+            reason: reason,
+            isDeleted: isDeleted,
+          )
+        : todoRepository.createTodoWhenNoConnection(
+            empId: empid,
+            managerId: manageId,
+            createdDate: createdDate,
+            toDoWork: wrk,
+            completedDate: completedDate,
+            reason: reason,
+            deadLine: deadLine,
+            isDeleted: isDeleted,
+          );
     fetchPersonalTodo(id: storage.read('EmployeeId'));
   }
 
@@ -41,11 +78,37 @@ class TodosController extends GetxController {
 
   @override
   void onReady() {
+    checkConnectivity();
     super.onReady();
   }
 
   @override
   void onClose() {
     super.onClose();
+  }
+
+  void checkConnectivity() {
+    Connectivity().onConnectivityChanged.listen(
+      (ConnectivityResult result) {
+        if (result == ConnectivityResult.wifi ||
+            result == ConnectivityResult.mobile) {
+          isConnected.value = true;
+          Get.dialog(AlertDialog(
+            title: Text('Internet is back'),
+            content: Text('You are connected to the internet.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Get.back();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          ));
+        } else {
+          isConnected.value = false;
+        }
+      },
+    );
   }
 }
