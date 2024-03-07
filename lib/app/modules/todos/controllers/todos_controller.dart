@@ -37,28 +37,33 @@ class TodosController extends GetxController {
       required String wrk,
       required String reason,
       required int deadLine,
-      required String isDeleted}) async {
-    isConnected.value == true
-        ? await todoRepository.createTodo(
-            deadLine: deadLine,
-            empId: empid,
-            managerId: manageId,
-            completedDate: completedDate,
-            createdDate: createdDate,
-            toDoWork: wrk,
-            reason: reason,
-            isDeleted: isDeleted,
-          )
-        : todoRepository.createTodoWhenNoConnection(
-            empId: empid,
-            managerId: manageId,
-            createdDate: createdDate,
-            toDoWork: wrk,
-            completedDate: completedDate,
-            reason: reason,
-            deadLine: deadLine,
-            isDeleted: isDeleted,
-          );
+      required String isDeleted}) {
+    // isConnected.value == true
+    // ?
+    //==
+    // await todoRepository.createTodo(
+    //   deadLine: deadLine,
+    //   empId: empid,
+    //   managerId: manageId,
+    //   completedDate: completedDate,
+    //   createdDate: createdDate,
+    //   toDoWork: wrk,
+    //   reason: reason,
+    //   isDeleted: isDeleted,
+    //       );
+    //==
+    // :
+    todoRepository.createTodoWhenNoConnection(
+      empId: empid,
+      managerId: manageId,
+      createdDate: createdDate,
+      toDoWork: wrk,
+      completedDate: completedDate,
+      reason: reason,
+      deadLine: deadLine,
+      isDeleted: isDeleted,
+    );
+
     fetchPersonalTodo(id: storage.read('EmployeeId'));
   }
 

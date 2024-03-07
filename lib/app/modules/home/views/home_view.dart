@@ -13,8 +13,10 @@ import 'package:todo_app_example/app/modules/todos/views/todos_view.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends StatelessWidget {
-  final HomeController controller = Get.put(HomeController(), permanent: true);
-  //final TodosController todosController = Get.put(TodosController());
+  final HomeController controller = Get.put(
+    HomeController(),
+  );
+  final TodosController todosController = Get.put(TodosController());
   List<insert_todo_modal> retrievedList = [];
   HomeView({super.key});
   @override

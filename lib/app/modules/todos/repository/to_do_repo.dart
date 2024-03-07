@@ -52,14 +52,14 @@ class TodoRepository {
   }) {
     insertedList.addAll([
       insert_todo_modal(
-        completionDate: completedDate,
-        employeeId: empId,
-        managerId: managerId,
-        work: toDoWork,
-        createdDate: createdDate,
-        deadline: deadLine,
-        isdeleted: isDeleted,
-        reason: reason,
+        completionDate: 'completedDate',
+        employeeId: 43,
+        managerId: 43,
+        work: 'toDoWork',
+        createdDate: '2024-03-07',
+        deadline: 11,
+        isdeleted: 'isDeleted',
+        reason: 'reason',
       )
     ]);
     log('=========No connection todo has been inserted');
