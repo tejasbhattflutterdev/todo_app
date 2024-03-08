@@ -7,6 +7,7 @@ abstract class Routes {
   static const AUTH = _Paths.AUTH;
   static const EMPLOYEE = _Paths.EMPLOYEE;
   static const TODOS = _Paths.TODOS;
+  static const CONN_CHECKER = _Paths.CONN_CHECKER;
 }
 
 abstract class _Paths {
@@ -15,4 +16,5 @@ abstract class _Paths {
   static const AUTH = '/auth';
   static const EMPLOYEE = '/employee';
   static const TODOS = '/todos';
+  static const CONN_CHECKER = '/conn-checker';
 }

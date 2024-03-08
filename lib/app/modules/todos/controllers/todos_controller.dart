@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:todo_app_example/app/data/insert_to_do_modal.dart';
 import 'package:todo_app_example/app/data/todo_personal_res.dart';
+import 'package:todo_app_example/app/modules/conn_checker/controllers/conn_checker_controller.dart';
 import 'package:todo_app_example/app/modules/todos/repository/to_do_repo.dart';
 
 class TodosController extends GetxController {
@@ -13,6 +14,8 @@ class TodosController extends GetxController {
   Rx<PersonalTodoResponse> toDoData = PersonalTodoResponse().obs;
   List<insert_todo_modal> listPersonalData = <insert_todo_modal>[].obs;
   List<insert_todo_modal> finalListPersonalData = <insert_todo_modal>[].obs;
+  ConnCheckerController connController = Get.find();
+
   updateData(
       {required int toDoId, required int empId, required int managerId}) async {
     await todoRepository.updateTodo(
@@ -37,34 +40,33 @@ class TodosController extends GetxController {
       required String wrk,
       required String reason,
       required int deadLine,
-      required String isDeleted}) {
-    // isConnected.value == true
-    // ?
-    //==
-    // await todoRepository.createTodo(
-    //   deadLine: deadLine,
-    //   empId: empid,
-    //   managerId: manageId,
-    //   completedDate: completedDate,
-    //   createdDate: createdDate,
-    //   toDoWork: wrk,
-    //   reason: reason,
-    //   isDeleted: isDeleted,
-    //       );
-    //==
-    // :
-    todoRepository.createTodoWhenNoConnection(
-      empId: empid,
-      managerId: manageId,
-      createdDate: createdDate,
-      toDoWork: wrk,
-      completedDate: completedDate,
-      reason: reason,
-      deadLine: deadLine,
-      isDeleted: isDeleted,
-    );
-
-    fetchPersonalTodo(id: storage.read('EmployeeId'));
+      required String isDeleted}) async {
+    if (connController.isConnected.value == true) {
+      await todoRepository.createTodo(
+        deadLine: deadLine,
+        empId: empid,
+        managerId: manageId,
+        completedDate: completedDate,
+        createdDate: createdDate,
+        toDoWork: wrk,
+        reason: reason,
+        isDeleted: isDeleted,
+      );
+      fetchPersonalTodo(id: storage.read('EmployeeId'));
+    } else {
+      todoRepository.createTodoWhenNoConnection(
+        empId: empid,
+        managerId: manageId,
+        createdDate: createdDate,
+        toDoWork: wrk,
+        completedDate: completedDate,
+        reason: reason,
+        deadLine: deadLine,
+        isDeleted: isDeleted,
+      );
+    }
+    //update();
+    //fetchPersonalTodo(id: storage.read('EmployeeId'));
   }
 
   fetchPersonalTodo({required int id}) async {
@@ -83,7 +85,8 @@ class TodosController extends GetxController {
 
   @override
   void onReady() {
-    checkConnectivity();
+    //checkConnectivity();
+    //connController.checkConnectivity();
     super.onReady();
   }
 
@@ -92,28 +95,28 @@ class TodosController extends GetxController {
     super.onClose();
   }
 
-  void checkConnectivity() {
-    Connectivity().onConnectivityChanged.listen(
-      (ConnectivityResult result) {
-        if (result == ConnectivityResult.wifi ||
-            result == ConnectivityResult.mobile) {
-          isConnected.value = true;
-          Get.dialog(AlertDialog(
-            title: Text('Internet is back'),
-            content: Text('You are connected to the internet.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          ));
-        } else {
-          isConnected.value = false;
-        }
-      },
-    );
-  }
+  // void checkConnectivity() {
+  //   Connectivity().onConnectivityChanged.listen(
+  //     (ConnectivityResult result) {
+  //       if (result == ConnectivityResult.wifi ||
+  //           result == ConnectivityResult.mobile) {
+  //         isConnected.value = true;
+  //         Get.dialog(AlertDialog(
+  //           title: Text('Internet is back'),
+  //           content: Text('You are connected to the internet.'),
+  //           actions: [
+  //             TextButton(
+  //               onPressed: () {
+  //                 Get.back();
+  //               },
+  //               child: Text('OK'),
+  //             ),
+  //           ],
+  //         ));
+  //       } else {
+  //         isConnected.value = false;
+  //       }
+  //     },
+  //   );
+  // }
 }

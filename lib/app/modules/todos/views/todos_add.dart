@@ -2,18 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:todo_app_example/app/core/call_of_api/custom_storage.dart';
-import 'package:todo_app_example/app/data/insert_to_do_modal.dart';
-import 'package:todo_app_example/app/data/todo_personal_res.dart';
-import 'package:todo_app_example/app/modules/network/controllers/network_controller_.dart';
+
 import 'package:todo_app_example/app/modules/todos/controllers/todos_controller.dart';
 import 'package:todo_app_example/widgets/w_text_form_field.dart';
 
 class AddTodos extends StatelessWidget {
   //final NetworkController networkController = Get.put(NetworkController());
 
-  final TodosController controller =
-      Get.put(TodosController(), permanent: true);
+  final TodosController controller = Get.put(TodosController());
   final empIDController = TextEditingController();
   final managerIDConroller = TextEditingController();
   final createdDateController = TextEditingController();

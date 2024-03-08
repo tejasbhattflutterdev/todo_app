@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:todo_app_example/app/modules/network/controllers/inject_dependency_class_x.dart';
-import 'package:todo_app_example/widgets/personal_todo_info.dart';
+import 'package:todo_app_example/app/modules/conn_checker/controllers/conn_checker_controller.dart';
+import 'package:todo_app_example/app/modules/todos/controllers/todos_controller.dart';
 
 import 'app/routes/app_pages.dart';
 
 void main() async {
   await GetStorage.init();
+  WidgetsFlutterBinding.ensureInitialized();
+  Get.put(ConnCheckerController());
+
   runApp(
     GetMaterialApp(
       title: "Application",
@@ -17,5 +20,4 @@ void main() async {
       //home: PersnalToDoInfo(),
     ),
   );
-  DependencyInjection.init();
 }

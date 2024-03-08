@@ -14,7 +14,7 @@ import 'package:todo_app_example/app/modules/todos/controllers/todos_controller.
 class TodoRepository {
   //GetStorage strg = GetStorage();
   //final strg = GetStorage();
-  //TodosController todosController = Get.put(TodosController());
+
   //TodoSharedPrefStorage myPrefs = TodoSharedPrefStorage();
   PersonalTodoResponse todoResponse = PersonalTodoResponse();
   List<insert_todo_modal> insertedList = [];
@@ -113,6 +113,10 @@ class TodoRepository {
       mapHeader: toDoPostHeader,
       apiData: toDoPostData,
     );
+
+    //todosController.fetchPersonalTodo(id: storg.read('EmployeeId'));
+    //==
+    //await todosController.fetchPersonalTodo(id: storg.read('EmployeeId'));
   }
 
   Future deleteTodo({required int toDoId}) async {
