@@ -14,9 +14,7 @@ import 'package:todo_app_example/app/modules/todos/views/todos_view.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends StatelessWidget {
-  final HomeController controller = Get.put(
-    HomeController(),
-  );
+  final HomeController controller = Get.put(HomeController());
   final ConnCheckerController connController =
       Get.find<ConnCheckerController>();
 

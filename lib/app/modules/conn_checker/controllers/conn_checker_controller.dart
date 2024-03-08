@@ -13,6 +13,7 @@ class ConnCheckerController extends GetxController {
 
   @override
   void onReady() {
+    checkConnectivity();
     super.onReady();
   }
 
