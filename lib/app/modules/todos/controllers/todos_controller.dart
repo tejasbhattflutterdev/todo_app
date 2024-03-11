@@ -17,9 +17,16 @@ class TodosController extends GetxController {
   ConnCheckerController connController = Get.find();
 
   updateData(
-      {required int toDoId, required int empId, required int managerId}) async {
+      {required int toDoId,
+      required int empId,
+      required int managerId,
+      required String work}) async {
     await todoRepository.updateTodo(
-        toDoId: toDoId, empId: empId, managerId: managerId);
+      toDoId: toDoId,
+      empId: empId,
+      managerId: managerId,
+      work: work,
+    );
     fetchPersonalTodo(id: storage.read('EmployeeId'));
   }
 
@@ -87,6 +94,9 @@ class TodosController extends GetxController {
   void onReady() {
     //checkConnectivity();
     //connController.checkConnectivity();
+    // connController.isConnected.listen((connection) {
+    //   if (connection) {}
+    // });
     super.onReady();
   }
 

@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:todo_app_example/app/const/api_const.dart';
@@ -12,7 +11,7 @@ import 'package:todo_app_example/app/modules/todos/controllers/todos_controller.
 import 'package:todo_app_example/app/modules/todos/repository/to_do_repo.dart';
 
 class HomeController extends GetxController {
-  ConnCheckerController connController = Get.find<ConnCheckerController>();
+  ConnCheckerController connController = Get.put(ConnCheckerController());
   TodosController todosController = Get.put(TodosController());
   List<insert_todo_modal> tempTodoList = <insert_todo_modal>[].obs;
   TodoRepository todoRepository = TodoRepository();
@@ -27,9 +26,15 @@ class HomeController extends GetxController {
   void onReady() {
     log('On Ready Called');
     connController.checkConnectivity();
-    connController.isConnected.value == true
-        ? insertDataWhenConnectionIsBack()
-        : logData();
+    connController.isConnected.listen((connected) {
+      if (connected) {
+        insertDataWhenConnectionIsBack();
+        TodoSharedPrefStorage.saveTodos([]);
+      }
+    });
+    // connController.isConnected.value == true
+    //     ? insertDataWhenConnectionIsBack()
+    //     : logData();
     log('On Ready Called Again');
     super.onReady();
   }
@@ -52,6 +57,7 @@ class HomeController extends GetxController {
     log('Length of todo list =${insertedList.length.toString()}');
     log('==========================');
     tempTodoList = insertedList;
+    //return tempTodoList;
   }
 
   insertDataWhenConnectionIsBack() async {
@@ -64,7 +70,10 @@ class HomeController extends GetxController {
       log('list will clear - ${tempTodoList.length}');
       callApiWhenConnectionIsBack(tempTodoList);
       tempTodoList = [];
+      insertedList = [];
+      TodoSharedPrefStorage.saveTodos([]);
       log('=======/nlist is with length - ${tempTodoList.length}');
+      // getAllTodoDetails();
     } else {
       log('list is already empty');
     }
@@ -85,8 +94,8 @@ class HomeController extends GetxController {
       toDoPostData = {
         "employee_id": storg.read('EmployeeId'),
         "manager_id": 43,
-        "created_date": "2024-03-09",
-        "work": 'MY WORK$i',
+        "created_date": tempTodoList[i].createdDate,
+        "work": '${tempTodoList[i].work}',
         "deadline": tempTodoList[i].deadline,
         "completion_date": tempTodoList[i].completionDate,
         "isdeleted": tempTodoList[i].isdeleted,
@@ -108,6 +117,8 @@ class HomeController extends GetxController {
       );
     }
     //await todoRepository.getAllPersonalTodos(id: storg.read('EmployeeId'));
+    //toDoPostData = {};
+    //postDataList = [];
     await todosController.fetchPersonalTodo(id: storg.read('EmployeeId'));
   }
 }

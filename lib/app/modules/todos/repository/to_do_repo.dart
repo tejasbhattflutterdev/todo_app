@@ -9,7 +9,6 @@ import 'package:todo_app_example/app/core/call_of_api/api_call.dart';
 import 'package:todo_app_example/app/core/call_of_api/custom_storage.dart';
 import 'package:todo_app_example/app/data/insert_to_do_modal.dart';
 import 'package:todo_app_example/app/data/todo_personal_res.dart';
-import 'package:todo_app_example/app/modules/todos/controllers/todos_controller.dart';
 
 class TodoRepository {
   //GetStorage strg = GetStorage();
@@ -17,7 +16,7 @@ class TodoRepository {
 
   //TodoSharedPrefStorage myPrefs = TodoSharedPrefStorage();
   PersonalTodoResponse todoResponse = PersonalTodoResponse();
-  List<insert_todo_modal> insertedList = [];
+
   String createdDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
   final storg = GetStorage();
@@ -49,17 +48,20 @@ class TodoRepository {
     required String reason,
     required int deadLine,
     required String isDeleted,
-  }) {
+  }) async {
+    List<insert_todo_modal> data = await TodoSharedPrefStorage.getTodos();
+    List<insert_todo_modal> insertedList = [];
+    insertedList = [...data];
     insertedList.addAll([
       insert_todo_modal(
-        completionDate: 'completedDate',
-        employeeId: 43,
+        completionDate: completedDate,
+        employeeId: storg.read('EmployeeId'),
         managerId: 43,
-        work: 'toDoWork',
-        createdDate: '2024-03-07',
-        deadline: 11,
-        isdeleted: 'isDeleted',
-        reason: 'reason',
+        work: toDoWork,
+        createdDate: createdDate,
+        deadline: deadLine,
+        isdeleted: isDeleted,
+        reason: reason,
       )
     ]);
     log('=========No connection todo has been inserted');
@@ -93,14 +95,14 @@ class TodoRepository {
     };
 
     final toDoPostData = {
-      "employee_id": storg.read('EmployeeId'),
+      "employee_id": empId,
       "manager_id": 43,
-      "created_date": "2024-03-09",
-      "work": "toDoWork",
+      "created_date": createdDate,
+      "work": toDoWork,
       "deadline": deadLine,
-      "completion_date": "2025-02-09",
-      "isdeleted": 'false',
-      "reason": 'reason',
+      "completion_date": completedDate,
+      "isdeleted": isDeleted,
+      "reason": reason,
     };
 
     await ApiCall.instance.restMainApi(
@@ -146,6 +148,7 @@ class TodoRepository {
     required int toDoId,
     required int empId,
     required int managerId,
+    required String work,
   }) async {
     final toDoUpdateHeader = {
       'accept': 'application/json',
@@ -158,8 +161,8 @@ class TodoRepository {
       "todo_work_id": toDoId,
       "employee_id": storg.read('EmployeeId'),
       "manager_id": managerId,
-      "work": "First Work",
-      "deadline": 5110
+      "work": "Data Has Been Updated Work",
+      //"deadline": 'Deadline has been updated'
     };
 
     await ApiCall.instance.restMainApi(

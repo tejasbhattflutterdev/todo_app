@@ -15,11 +15,10 @@ import '../controllers/home_controller.dart';
 
 class HomeView extends StatelessWidget {
   final HomeController controller = Get.put(HomeController());
-  final ConnCheckerController connController =
-      Get.find<ConnCheckerController>();
+  final ConnCheckerController connController = Get.put(ConnCheckerController());
 
   //final TodosController todosController = Get.put(TodosController());
-  List<insert_todo_modal> retrievedList = [];
+  final List<insert_todo_modal> retrievedList = [];
   HomeView({super.key});
   @override
   Widget build(BuildContext context) {

@@ -133,15 +133,27 @@ class AddTodos extends StatelessWidget {
 
                   // localStorage.write(
                   //     'listPersonalData', controller.listPersonalData);
+                  final completionDate =
+                      completionController.text.trim().toString();
+                  final createdDate = DateTime.now();
+                  int year = createdDate.year;
+                  String month = createdDate.month
+                      .toString()
+                      .padLeft(2, '0'); // Ensure two digits
+                  String day = createdDate.day.toString().padLeft(2, '0');
+                  String work = workControler.text.trim();
+                  String reason = reasonController.text.trim();
+                  int deadLine = int.parse(deadLineController.text.trim());
                   controller.insertTodo(
-                      empid: 43,
-                      manageId: 43,
-                      completedDate: 'completedDate',
-                      createdDate: '2024-03-07',
-                      wrk: 'wrk999',
-                      reason: 'reason',
-                      deadLine: 9,
-                      isDeleted: 'isDeleted');
+                    empid: localStorage.read('EmployeeId'),
+                    manageId: 43,
+                    completedDate: completionDate,
+                    createdDate: '$year-$month-$day',
+                    wrk: work,
+                    reason: reason,
+                    deadLine: deadLine,
+                    isDeleted: isDeleted,
+                  );
 
                   //List<insert_todo_modal> insertList = [];
                 },
