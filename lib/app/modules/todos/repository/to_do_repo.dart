@@ -96,7 +96,7 @@ class TodoRepository {
 
     final toDoPostData = {
       "employee_id": empId,
-      "manager_id": 43,
+      "manager_id": managerId,
       "created_date": createdDate,
       "work": toDoWork,
       "deadline": deadLine,
@@ -159,10 +159,10 @@ class TodoRepository {
 
     final toDoUpdateReqData = {
       "todo_work_id": toDoId,
-      "employee_id": storg.read('EmployeeId'),
-      "manager_id": managerId,
-      "work": "Data Has Been Updated Work",
-      //"deadline": 'Deadline has been updated'
+      "employee_id": empId,
+      "manager_id": 43,
+      "work": work,
+      "deadline": 8,
     };
 
     await ApiCall.instance.restMainApi(
@@ -171,6 +171,31 @@ class TodoRepository {
       onSuccess: (sData) {},
       mapHeader: toDoUpdateHeader,
       apiData: toDoUpdateReqData,
+    );
+  }
+
+  Future completionOfTodo({required int toDoId, required int empId}) async {
+    final toDoPostCompletionHeader = {
+      'accept': 'application/json',
+      'Tra-ID': storg.read('trx_id'),
+      'Device-ID': 'mobile',
+      'Content-Type': 'application/json'
+    };
+
+    final toDoPostCompletionData = {
+      "todo_work_id": toDoId,
+      "employee_id": empId,
+    };
+
+    await ApiCall.instance.restMainApi(
+      url: '/todo/completion',
+      restMethodType: MethodType.post,
+      onSuccess: (data) {
+        //PersonalTodoResponse todoRes = PersonalTodoResponse.fromJson(data);
+        //storg.write('TodoWorkId', todoRes.data![0].id);
+      },
+      mapHeader: toDoPostCompletionHeader,
+      apiData: toDoPostCompletionData,
     );
   }
 }

@@ -93,7 +93,7 @@ class HomeController extends GetxController {
     for (int i = 0; i < tempTodoList.length; i++) {
       toDoPostData = {
         "employee_id": storg.read('EmployeeId'),
-        "manager_id": 43,
+        "manager_id": tempTodoList[i].managerId,
         "created_date": tempTodoList[i].createdDate,
         "work": '${tempTodoList[i].work}',
         "deadline": tempTodoList[i].deadline,

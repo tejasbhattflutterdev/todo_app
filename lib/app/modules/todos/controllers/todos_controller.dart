@@ -16,15 +16,16 @@ class TodosController extends GetxController {
   List<insert_todo_modal> finalListPersonalData = <insert_todo_modal>[].obs;
   ConnCheckerController connController = Get.find();
 
-  updateData(
-      {required int toDoId,
-      required int empId,
-      required int managerId,
-      required String work}) async {
+  updateData({
+    required int toDoId,
+    required int empId,
+    required int managerId,
+    required String work,
+  }) async {
     await todoRepository.updateTodo(
       toDoId: toDoId,
-      empId: empId,
-      managerId: managerId,
+      empId: storage.read('EmployeeId'),
+      managerId: 43,
       work: work,
     );
     fetchPersonalTodo(id: storage.read('EmployeeId'));
@@ -32,6 +33,14 @@ class TodosController extends GetxController {
 
   deleteParticularTodo({required int todoWorkId}) async {
     await todoRepository.deleteTodo(toDoId: todoWorkId);
+    fetchPersonalTodo(id: storage.read('EmployeeId'));
+  }
+
+  completionTodo({required int myTodoId, required int myEmpId}) async {
+    await todoRepository.completionOfTodo(
+      toDoId: myTodoId,
+      empId: myEmpId,
+    );
     fetchPersonalTodo(id: storage.read('EmployeeId'));
   }
 
