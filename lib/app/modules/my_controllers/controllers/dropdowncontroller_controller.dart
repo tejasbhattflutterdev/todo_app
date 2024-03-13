@@ -1,9 +1,14 @@
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:get_storage/get_storage.dart';
 
 class DropdownController extends GetxController {
-  RxString selectedManagerialValue = 'Ankit Bhatt'.obs;
-  RxString selectedEployeeValue = 'Ankit Bhatt'.obs;
+  Rx<String?> selectedManagerialValue = 'Ankit Bhatt'.obs;
+  Rx<String?> selectedEployeeValue = 'Ankit Bhatt'.obs;
+  RxString selectedEmpOfflineValue = 'Ankit Bhatt'.obs;
+  RxString selectedManageOfflineValue = 'Ankit Bhatt'.obs;
+  RxInt selectedManagerOfflineId = 0.obs;
+  RxInt selectedEmployeeOfflineId = 0.obs;
   RxInt selectedManagerialId = 0.obs;
   RxInt selectedEmployeeId = 0.obs;
   final storage = GetStorage();
@@ -17,5 +22,17 @@ class DropdownController extends GetxController {
   void setSelectedValueForEmployye(String eValue, int eId) {
     selectedEployeeValue.value = eValue;
     selectedEmployeeId.value = eId;
+  }
+
+  void setSelectedValueForOfflineEmployye(
+      String eOfflineEmpValue, int eOfflineEmpId) {
+    selectedEmpOfflineValue.value = eOfflineEmpValue;
+    selectedEmployeeOfflineId.value = eOfflineEmpId;
+  }
+
+  void setSelectedValueForOfflineManagerial(
+      String eOfflineManagerValue, int eOfflineManagerId) {
+    selectedManageOfflineValue.value = eOfflineManagerValue;
+    selectedManagerOfflineId.value = eOfflineManagerId;
   }
 }

@@ -54,14 +54,14 @@ class TodoRepository {
     insertedList = [...data];
     insertedList.addAll([
       insert_todo_modal(
-        completionDate: completedDate,
+        completionDate: 'String completedDate',
         employeeId: storg.read('EmployeeId'),
-        managerId: managerId,
+        managerId: storg.read('managerId'),
         work: toDoWork,
         createdDate: createdDate,
         deadline: deadLine,
         isdeleted: isDeleted,
-        //reason: reason,
+        reason: 'no reason',
       )
     ]);
     log('=========No connection todo has been inserted');
