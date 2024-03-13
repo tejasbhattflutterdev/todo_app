@@ -34,5 +34,6 @@ class DropdownController extends GetxController {
       String eOfflineManagerValue, int eOfflineManagerId) {
     selectedManageOfflineValue.value = eOfflineManagerValue;
     selectedManagerOfflineId.value = eOfflineManagerId;
+    storage.write('offlineManagerialId', selectedManagerOfflineId.value);
   }
 }

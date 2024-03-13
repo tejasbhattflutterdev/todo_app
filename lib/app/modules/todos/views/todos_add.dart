@@ -253,7 +253,7 @@ class AddTodos extends StatelessWidget {
                             : dropDownController.selectedManagerOfflineId.value,
                         manageId: connController.isConnected.value == true
                             ? dropDownController.selectedManagerialId.value
-                            : dropDownController.selectedManagerialId.value,
+                            : dropDownController.selectedManagerOfflineId.value,
                         completedDate: 'no completed',
                         createdDate: '2024-09-09',
                         wrk: work,

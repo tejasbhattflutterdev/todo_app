@@ -66,5 +66,8 @@ class AuthenticationRpository {
       url: '/employee/logout',
       onSuccess: (mapValues) {},
     );
+
+    //loginResponseData.write('trx_id', '');
+    loginResponseData.write('trx_id', null);
   }
 }

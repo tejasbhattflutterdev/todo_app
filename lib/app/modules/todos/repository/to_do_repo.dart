@@ -56,9 +56,9 @@ class TodoRepository {
       insert_todo_modal(
         completionDate: 'String completedDate',
         employeeId: storg.read('EmployeeId'),
-        managerId: storg.read('managerId'),
+        managerId: storg.read('offlineManagerialId'),
         work: toDoWork,
-        createdDate: createdDate,
+        createdDate: '2024-05-05',
         deadline: deadLine,
         isdeleted: isDeleted,
         reason: 'no reason',
