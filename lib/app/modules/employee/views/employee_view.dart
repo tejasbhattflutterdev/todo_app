@@ -21,9 +21,22 @@ class EmployeeView extends StatelessWidget {
             itemCount: empData.length,
             itemBuilder: (context, index) {
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(empData[index].employeeId.toString()),
-                  Text(empData[index].name.toString()),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Text(
+                            'Employee Id - ${empData[index].employeeId.toString()}'),
+                        Text(
+                            'Employee Name -  ${empData[index].name.toString()}'),
+                        const Text(
+                          '=============================================',
+                        )
+                      ],
+                    ),
+                  ),
                 ],
               );
             },

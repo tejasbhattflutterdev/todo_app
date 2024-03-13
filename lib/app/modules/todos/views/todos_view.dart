@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:todo_app_example/app/modules/conn_checker/controllers/conn_checker_controller.dart';
 import 'package:todo_app_example/app/modules/home/controllers/home_controller.dart';
 
@@ -10,6 +11,7 @@ import 'package:todo_app_example/widgets/personal_todo_info.dart';
 class PersonalTodoView extends StatelessWidget {
   final TodosController controller = Get.put(TodosController());
   final HomeController homeController = Get.put(HomeController());
+  final storage = GetStorage();
   // final ConnCheckerController connController = Get.find();
 
   //final NetworkController networkController = Get.put(NetworkController());
@@ -33,8 +35,8 @@ class PersonalTodoView extends StatelessWidget {
                     controller.updateData(
                         toDoId: toDoData[index].id!,
                         empId: toDoData[index].employeeId!,
-                        managerId: 43,
-                        work: 'Work Has Been Updated');
+                        managerId: storage.read('managerId'),
+                        work: '=====Work Has Been Updated=====');
                   },
                   onLongPress: () {
                     controller.deleteParticularTodo(

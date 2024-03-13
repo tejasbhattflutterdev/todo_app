@@ -45,7 +45,7 @@ class TodoRepository {
     required String createdDate,
     required String toDoWork,
     required String completedDate,
-    required String reason,
+    //required String reason,
     required int deadLine,
     required String isDeleted,
   }) async {
@@ -56,12 +56,12 @@ class TodoRepository {
       insert_todo_modal(
         completionDate: completedDate,
         employeeId: storg.read('EmployeeId'),
-        managerId: 43,
+        managerId: managerId,
         work: toDoWork,
         createdDate: createdDate,
         deadline: deadLine,
         isdeleted: isDeleted,
-        reason: reason,
+        //reason: reason,
       )
     ]);
     log('=========No connection todo has been inserted');
@@ -82,7 +82,6 @@ class TodoRepository {
     required String createdDate,
     required String toDoWork,
     required String completedDate,
-    required String reason,
     required int deadLine,
     required String isDeleted,
   }) async {
@@ -102,7 +101,7 @@ class TodoRepository {
       "deadline": deadLine,
       "completion_date": completedDate,
       "isdeleted": isDeleted,
-      "reason": reason,
+      "reason": 'no reason',
     };
 
     await ApiCall.instance.restMainApi(
@@ -146,8 +145,8 @@ class TodoRepository {
 
   Future updateTodo({
     required int toDoId,
-    required int empId,
-    required int managerId,
+    required int? empId,
+    required int? managerId,
     required String work,
   }) async {
     final toDoUpdateHeader = {
@@ -159,10 +158,10 @@ class TodoRepository {
 
     final toDoUpdateReqData = {
       "todo_work_id": toDoId,
-      "employee_id": empId,
-      "manager_id": 43,
+      "employee_id": empId ?? 43,
+      "manager_id": managerId ?? 43,
       "work": work,
-      "deadline": 8,
+      "deadline": 11,
     };
 
     await ApiCall.instance.restMainApi(

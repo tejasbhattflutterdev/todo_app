@@ -28,19 +28,19 @@ class ConnCheckerController extends GetxController {
         if (result == ConnectivityResult.wifi ||
             result == ConnectivityResult.mobile) {
           isConnected.value = true;
-          Get.dialog(AlertDialog(
-            title: const Text('Internet is on'),
-            content:
-                Text('You are connected to the internet.${isConnected.value}'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: const Text('OK'),
-              ),
-            ],
-          ));
+          // Get.dialog(AlertDialog(
+          //   title: const Text('Internet is on'),
+          //   content:
+          //       Text('You are connected to the internet.${isConnected.value}'),
+          //   actions: [
+          //     TextButton(
+          //       onPressed: () {
+          //         Get.back();
+          //       },
+          //       child: const Text('OK'),
+          //     ),
+          //   ],
+          // ));
         } else {
           isConnected.value = false;
           // Get.dialog(AlertDialog(

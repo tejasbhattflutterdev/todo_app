@@ -9,4 +9,10 @@ class AuthController extends GetxController {
       password: password!,
     );
   }
+
+  Future logoutFromTodaApp({required int empId}) async {
+    await authRepo.logout(
+      empId: empId,
+    );
+  }
 }

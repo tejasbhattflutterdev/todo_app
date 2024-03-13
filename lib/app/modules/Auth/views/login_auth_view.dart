@@ -52,8 +52,8 @@ class AuthView extends GetView<AuthController> {
                   ElevatedButton(
                     onPressed: () async {
                       await controller.loginForToDo(
-                        email: 'tejas.b@rupiya.app',
-                        password: '12345678',
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim(),
                       );
                       // if (isSuccess == true) {
                       // }

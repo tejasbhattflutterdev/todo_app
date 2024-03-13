@@ -56,6 +56,34 @@ class AddTodos extends StatelessWidget {
                 //   txtController: empIDController,
                 //   isEnabled: false,
                 // ),
+                const Text('Please Select Employee Person Name'),
+                Obx(() {
+                  final empData = empController.empData.value.data;
+                  final selectedValue =
+                      dropDownController.selectedEployeeValue.value;
+                  //final selectedId = dropDownController.selectedId.value;
+
+                  return DropdownButton<String>(
+                    value: selectedValue ?? empData![0].name,
+                    onChanged: (String? newValue) {
+                      final selectedItem = empData
+                          .firstWhere((element) => element.name == newValue);
+                      dropDownController.setSelectedValueForEmployye(
+                          selectedItem.name!, selectedItem.employeeId!);
+                      log('Employee Id = ${selectedItem.employeeId}');
+                      log('Employee Name = ${selectedItem.name}');
+                    },
+                    items: empData!.map<DropdownMenuItem<String>>((value) {
+                      return DropdownMenuItem<String>(
+                        value: value.name,
+                        child: Text(value.name!),
+                      );
+                    }).toList(),
+                  );
+                }),
+                const SizedBox(
+                  height: 30,
+                ),
                 const Text('Please Select Managerial Person Name'),
                 Obx(() {
                   final empData = empController.empData.value.data;
@@ -84,43 +112,19 @@ class AddTodos extends StatelessWidget {
                 const SizedBox(
                   height: 45,
                 ),
-                const Text('Please Select Employee Name'),
-                Obx(() {
-                  final empData = empController.empData.value.data;
-                  final selectedValue =
-                      dropDownController.selectedEployeeValue.value;
-                  //final selectedId = dropDownController.selectedId.value;
 
-                  return DropdownButton<String>(
-                    value: selectedValue ?? empData![0].name,
-                    onChanged: (String? newValue) {
-                      final selectedItem = empData
-                          .firstWhere((element) => element.name == newValue);
-                      dropDownController.setSelectedValueForEmployye(
-                          selectedItem.name!, selectedItem.employeeId!);
-                      log('Employee Id = ${selectedItem.employeeId}');
-                      log('Employee Name = ${selectedItem.name}');
-                    },
-                    items: empData!.map<DropdownMenuItem<String>>((value) {
-                      return DropdownMenuItem<String>(
-                        value: value.name,
-                        child: Text(value.name!),
-                      );
-                    }).toList(),
-                  );
-                }),
-                const SizedBox(
-                  height: 13,
-                ),
-                RTextFormField(
-                  isEnabled: false,
-                  labelText: 'Manager Id',
-                  obscureText: false,
-                  txtController: managerIDConroller,
-                ),
-                const SizedBox(
-                  height: 13,
-                ),
+                // const SizedBox(
+                //   height: 13,
+                // ),
+                // RTextFormField(
+                //   isEnabled: false,
+                //   labelText: 'Manager Id',
+                //   obscureText: false,
+                //   txtController: managerIDConroller,
+                // ),
+                // const SizedBox(
+                //   height: 13,
+                // ),
                 RTextFormField(
                   labelText: 'Created Date',
                   obscureText: false,
@@ -142,34 +146,34 @@ class AddTodos extends StatelessWidget {
                   obscureText: false,
                   txtController: deadLineController,
                 ),
-                const SizedBox(
-                  height: 13,
-                ),
+                // const SizedBox(
+                //   height: 13,
+                // ),
                 // RTextFormField(
                 //   labelText: 'Completion Date',
                 //   obscureText: false,
                 //   txtController: completionController,
                 // ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 18.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Please Select Completion Date',
-                    ),
-                  ),
-                ),
+                // const Padding(
+                //   padding: EdgeInsets.only(left: 18.0),
+                //   child: Align(
+                //     alignment: Alignment.centerLeft,
+                //     child: Text(
+                //       'Please Select Completion Date',
+                //     ),
+                //   ),
+                // ),
 
-                CustomBackgroundExample(),
+                //CustomBackgroundExample(),
 
-                const SizedBox(
-                  height: 13,
-                ),
-                RTextFormField(
-                  labelText: 'Reason',
-                  obscureText: false,
-                  txtController: reasonController,
-                ),
+                // const SizedBox(
+                //   height: 13,
+                // ),
+                // RTextFormField(
+                //   labelText: 'Reason',
+                //   obscureText: false,
+                //   txtController: reasonController,
+                // ),
                 const SizedBox(height: 75),
                 ElevatedButton(
                     onPressed: () {
@@ -186,12 +190,11 @@ class AddTodos extends StatelessWidget {
                       String completionDate =
                           dateController.formattedDate.value.toString();
                       controller.insertTodo(
-                        empid: localStorage.read('EmployeeId'),
+                        empid: dropDownController.selectedEmployeeId.value,
                         manageId: dropDownController.selectedManagerialId.value,
-                        completedDate: completionDate,
-                        createdDate: '$year-$month-$day',
+                        completedDate: 'no completed',
+                        createdDate: '2024-09-09',
                         wrk: work,
-                        reason: reason,
                         deadLine: deadLine,
                         isDeleted: isDeleted,
                       );

@@ -39,7 +39,7 @@ class PersnalToDoInfo extends StatelessWidget {
             bottomLeft: Radius.circular(25),
             bottomRight: Radius.circular(25)),
       ),
-      height: 300,
+      height: 320,
       width: double.maxFinite,
       child: Padding(
         padding: const EdgeInsets.only(

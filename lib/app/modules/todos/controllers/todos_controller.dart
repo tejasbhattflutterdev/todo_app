@@ -25,7 +25,7 @@ class TodosController extends GetxController {
     await todoRepository.updateTodo(
       toDoId: toDoId,
       empId: storage.read('EmployeeId'),
-      managerId: 43,
+      managerId: managerId,
       work: work,
     );
     fetchPersonalTodo(id: storage.read('EmployeeId'));
@@ -54,7 +54,6 @@ class TodosController extends GetxController {
       required String completedDate,
       required String createdDate,
       required String wrk,
-      required String reason,
       required int deadLine,
       required String isDeleted}) async {
     if (connController.isConnected.value == true) {
@@ -65,7 +64,6 @@ class TodosController extends GetxController {
         completedDate: completedDate,
         createdDate: createdDate,
         toDoWork: wrk,
-        reason: reason,
         isDeleted: isDeleted,
       );
       fetchPersonalTodo(id: storage.read('EmployeeId'));
@@ -76,7 +74,6 @@ class TodosController extends GetxController {
         createdDate: createdDate,
         toDoWork: wrk,
         completedDate: completedDate,
-        reason: reason,
         deadLine: deadLine,
         isDeleted: isDeleted,
       );
