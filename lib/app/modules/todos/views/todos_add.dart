@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:todo_app_example/app/data/employee_modal.dart';
+
 import 'package:todo_app_example/app/modules/conn_checker/controllers/conn_checker_controller.dart';
 import 'package:todo_app_example/app/modules/employee/controllers/employee_controller.dart';
 import 'package:todo_app_example/app/modules/my_controllers/controllers/datecontroller_controller.dart';
 import 'package:todo_app_example/app/modules/my_controllers/controllers/dropdowncontroller_controller.dart';
 
 import 'package:todo_app_example/app/modules/todos/controllers/todos_controller.dart';
-import 'package:todo_app_example/widgets/date_timeline.dart';
+
 import 'package:todo_app_example/widgets/w_text_form_field.dart';
 
 class AddTodos extends StatelessWidget {
@@ -246,16 +246,16 @@ class AddTodos extends StatelessWidget {
                 ElevatedButton(
                     onPressed: () {
                       //if (toDoGlobalKey.currentState!.validate()) {
-                      final createdDate = DateTime.now();
-                      int year = createdDate.year;
-                      String month = createdDate.month
-                          .toString()
-                          .padLeft(2, '0'); // Ensure two digits
-                      String day = createdDate.day.toString().padLeft(2, '0');
+                      //final createdDate = DateTime.now();
+                      //int year = createdDate.year;
+                      //String month = createdDate.month
+                      //    .toString()
+                      //    .padLeft(2, '0'); // Ensure two digits
+                      //String day = createdDate.day.toString().padLeft(2, '0');
                       String work = workControler.text.trim();
-                      String reason = reasonController.text.trim();
+                      //String reason = reasonController.text.trim();
                       int deadLine = int.parse(deadLineController.text.trim());
-                      String completionDate =
+                      //String completionDate =
                           dateController.formattedDate.value.toString();
                       controller.insertTodo(
                         empid: connController.isConnected.value == true

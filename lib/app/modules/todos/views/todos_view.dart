@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:todo_app_example/app/modules/conn_checker/controllers/conn_checker_controller.dart';
+
 import 'package:todo_app_example/app/modules/home/controllers/home_controller.dart';
 
 import 'package:todo_app_example/app/modules/todos/controllers/todos_controller.dart';

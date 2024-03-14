@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:get_storage/get_storage.dart';
+
 import 'package:todo_app_example/app/const/api_const.dart';
-import 'package:todo_app_example/app/data/employee_modal.dart';
+
 
 mixin REST {
   static Dio dio = Dio(
@@ -24,7 +24,7 @@ mixin REST {
     required void Function(Map<String, dynamic> mapValues) onSuccess,
     required Map<String, dynamic>? mapHeader,
   }) async {
-    List<EmployeeModal> empList = [];
+    //List<EmployeeModal> empList = [];
     try {
       log(apiData.toString());
       log(url.toString());
@@ -56,7 +56,7 @@ mixin REST {
           ),
         );
         if (res.statusCode == 200) {
-          log('DATA  = ' + res.data.toString());
+          log('DATA  = ${res.data}');
           String transactionId = res.data['data'][0]['trx_id'];
           log(transactionId);
           String mName = res.data['data'][0]['Name'];

@@ -3,8 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:todo_app_example/app/modules/home/views/home_view.dart';
-import 'package:todo_app_example/app/routes/app_pages.dart';
+
 import 'package:todo_app_example/widgets/w_text_form_field.dart';
 import 'package:todo_app_example/widgets/widget_const.dart';
 

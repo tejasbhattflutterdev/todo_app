@@ -10,9 +10,9 @@ import 'package:todo_app_example/app/modules/Auth/controllers/auth_controller.da
 import 'package:todo_app_example/app/modules/Auth/views/login_auth_view.dart';
 import 'package:todo_app_example/app/modules/conn_checker/controllers/conn_checker_controller.dart';
 import 'package:todo_app_example/app/modules/employee/views/employee_view.dart';
-import 'package:todo_app_example/app/modules/todos/controllers/todos_controller.dart';
+
 import 'package:todo_app_example/app/modules/todos/views/todos_view.dart';
-import 'package:todo_app_example/app/routes/app_pages.dart';
+
 
 import '../controllers/home_controller.dart';
 

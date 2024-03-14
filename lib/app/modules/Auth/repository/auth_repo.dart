@@ -1,13 +1,13 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:todo_app_example/app/const/api_const.dart';
 import 'package:todo_app_example/app/core/call_of_api/api_call.dart';
 import 'package:todo_app_example/app/data/response_modal.dart';
 import 'package:todo_app_example/app/modules/home/views/home_view.dart';
-import 'package:todo_app_example/app/routes/app_pages.dart';
+
 
 class AuthenticationRpository {
   final myPostHader = {
@@ -40,7 +40,7 @@ class AuthenticationRpository {
         loginResponseData.write('PostId', model.data?.first.postId);
         loginResponseData.write('Post_Name', model.data?.first.postName);
         loginResponseData.write('trx_id', model.data?.first.trxId);
-        log('Transaction ID ' + loginResponseData.read('trx_id'));
+        log('Transaction ID = ${loginResponseData.read('trx_id')}');
         Get.offAll(() => HomeView());
       },
     );
