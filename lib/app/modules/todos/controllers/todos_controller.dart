@@ -24,7 +24,7 @@ class TodosController extends GetxController {
   }) async {
     await todoRepository.updateTodo(
       toDoId: toDoId,
-      empId: storage.read('EmployeeId'),
+      empId: empId,
       managerId: managerId,
       work: work,
     );

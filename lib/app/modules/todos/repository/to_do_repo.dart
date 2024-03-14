@@ -55,7 +55,7 @@ class TodoRepository {
     insertedList.addAll([
       insert_todo_modal(
         completionDate: 'String completedDate',
-        employeeId: storg.read('EmployeeId'),
+        employeeId: storg.read('offlineEmpId'),
         managerId: storg.read('offlineManagerialId'),
         work: toDoWork,
         createdDate: '2024-05-05',
@@ -158,10 +158,10 @@ class TodoRepository {
 
     final toDoUpdateReqData = {
       "todo_work_id": toDoId,
-      "employee_id": empId ?? 43,
-      "manager_id": managerId ?? 43,
+      "employee_id": empId,
+      "manager_id": managerId,
       "work": work,
-      "deadline": 11,
+      "deadline": 9,
     };
 
     await ApiCall.instance.restMainApi(

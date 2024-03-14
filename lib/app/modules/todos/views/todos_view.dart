@@ -35,7 +35,7 @@ class PersonalTodoView extends StatelessWidget {
                     controller.updateData(
                         toDoId: toDoData[index].id!,
                         empId: toDoData[index].employeeId!,
-                        managerId: storage.read('managerId'),
+                        managerId: toDoData[index].managerId!,
                         work: '=====Work Has Been Updated=====');
                   },
                   onLongPress: () {

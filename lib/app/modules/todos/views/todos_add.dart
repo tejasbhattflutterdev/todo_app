@@ -69,44 +69,50 @@ class AddTodos extends StatelessWidget {
 
                   //final selectedId = dropDownController.selectedId.value;
 
-                  return DropdownButton<String>(
-                    value: connController.isConnected.value == true
-                        ? selectedValue
-                        : selectedEmployeeOfflineValue,
-                    onChanged: (String? newValue) {
-                      if (connController.isConnected.value == true) {
-                        final selectedItem = empData!
-                            .firstWhere((element) => element.name == newValue);
-                        dropDownController.setSelectedValueForEmployye(
-                          selectedItem.name!,
-                          selectedItem.employeeId!,
+                  return empController.isLoading.value == true
+                      ? CircularProgressIndicator()
+                      : DropdownButton<String>(
+                          value: connController.isConnected.value == true
+                              ? selectedValue
+                              : selectedEmployeeOfflineValue,
+                          onChanged: (String? newValue) {
+                            if (connController.isConnected.value == true) {
+                              final selectedItem = empData!.firstWhere(
+                                  (element) => element.name == newValue);
+                              dropDownController.setSelectedValueForEmployye(
+                                selectedItem.name!,
+                                selectedItem.employeeId!,
+                              );
+                              log('Employee Id = ${selectedItem.employeeId}');
+                              log('Employee Name = ${selectedItem.name}');
+                            } else {
+                              final selectedfflineEmpItem =
+                                  offLineData?.firstWhere(
+                                      (element) => element.name == newValue);
+                              dropDownController
+                                  .setSelectedValueForOfflineEmployye(
+                                selectedfflineEmpItem!.name!,
+                                selectedfflineEmpItem.employeeId!,
+                              );
+                              log('Offline Employee Id = ${selectedfflineEmpItem.employeeId}');
+                              log('Offline Employee Name = ${selectedfflineEmpItem.name}');
+                            }
+                          },
+                          items:
+                              empData?.map<DropdownMenuItem<String>>((value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value.name,
+                                      child: Text(value.name!),
+                                    );
+                                  }).toList() ??
+                                  offLineData!
+                                      .map<DropdownMenuItem<String>>((value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value.name,
+                                      child: Text(value.name!),
+                                    );
+                                  }).toList(),
                         );
-                        log('Employee Id = ${selectedItem.employeeId}');
-                        log('Employee Name = ${selectedItem.name}');
-                      } else {
-                        final selectedfflineEmpItem = offLineData
-                            ?.firstWhere((element) => element.name == newValue);
-                        dropDownController.setSelectedValueForOfflineEmployye(
-                          selectedfflineEmpItem!.name!,
-                          selectedfflineEmpItem.employeeId!,
-                        );
-                        log('Offline Employee Id = ${selectedfflineEmpItem.employeeId}');
-                        log('Offline Employee Name = ${selectedfflineEmpItem.name}');
-                      }
-                    },
-                    items: empData?.map<DropdownMenuItem<String>>((value) {
-                          return DropdownMenuItem<String>(
-                            value: value.name,
-                            child: Text(value.name!),
-                          );
-                        }).toList() ??
-                        offLineData!.map<DropdownMenuItem<String>>((value) {
-                          return DropdownMenuItem<String>(
-                            value: value.name,
-                            child: Text(value.name!),
-                          );
-                        }).toList(),
-                  );
                 }),
                 const SizedBox(
                   height: 30,
@@ -121,51 +127,55 @@ class AddTodos extends StatelessWidget {
                       dropDownController.selectedManageOfflineValue.value;
                   //final selectedId = dropDownController.selectedId.value;
 
-                  return DropdownButton<String>(
-                      value: connController.isConnected.value == true
-                          ? selectedValue
-                          : selectedManagerOfflineValue,
-                      onChanged: (String? newValue) {
-                        // final selectedItem = empData!
-                        //     .firstWhere((element) => element.name == newValue);
-                        // dropDownController.setSelectedValueForManagerial(
-                        //     selectedItem.name!, selectedItem.employeeId!);
-                        // log('Managerial Id = ${selectedItem.employeeId}');
-                        // log('Managerial Name = ${selectedItem.name}');
-                        if (connController.isConnected.value == true) {
-                          final selectedItem = empData!.firstWhere(
-                              (element) => element.name == newValue);
-                          dropDownController.setSelectedValueForManagerial(
-                            selectedItem.name!,
-                            selectedItem.employeeId!,
-                          );
-                          log('Manager Id = ${selectedItem.employeeId}');
-                          log('Manager Name = ${selectedItem.name}');
-                        } else {
-                          final selectedOfflineManagerItem =
-                              offLineData?.firstWhere(
+                  return empController.isLoading.value == true
+                      ? CircularProgressIndicator()
+                      : DropdownButton<String>(
+                          value: connController.isConnected.value == true
+                              ? selectedValue
+                              : selectedManagerOfflineValue,
+                          onChanged: (String? newValue) {
+                            // final selectedItem = empData!
+                            //     .firstWhere((element) => element.name == newValue);
+                            // dropDownController.setSelectedValueForManagerial(
+                            //     selectedItem.name!, selectedItem.employeeId!);
+                            // log('Managerial Id = ${selectedItem.employeeId}');
+                            // log('Managerial Name = ${selectedItem.name}');
+                            if (connController.isConnected.value == true) {
+                              final selectedItem = empData!.firstWhere(
                                   (element) => element.name == newValue);
-                          dropDownController
-                              .setSelectedValueForOfflineManagerial(
-                            selectedOfflineManagerItem!.name!,
-                            selectedOfflineManagerItem.employeeId!,
-                          );
-                          log('Offline Manager Id = ${selectedOfflineManagerItem.employeeId}');
-                          log('Offline Manager Name = ${selectedOfflineManagerItem.name}');
-                        }
-                      },
-                      items: empData?.map<DropdownMenuItem<String>>((value) {
-                            return DropdownMenuItem<String>(
-                              value: value.name,
-                              child: Text(value.name!),
-                            );
-                          }).toList() ??
-                          offLineData!.map<DropdownMenuItem<String>>((value) {
-                            return DropdownMenuItem<String>(
-                              value: value.name,
-                              child: Text(value.name!),
-                            );
-                          }).toList());
+                              dropDownController.setSelectedValueForManagerial(
+                                selectedItem.name!,
+                                selectedItem.employeeId!,
+                              );
+                              log('Manager Id = ${selectedItem.employeeId}');
+                              log('Manager Name = ${selectedItem.name}');
+                            } else {
+                              final selectedOfflineManagerItem =
+                                  offLineData?.firstWhere(
+                                      (element) => element.name == newValue);
+                              dropDownController
+                                  .setSelectedValueForOfflineManagerial(
+                                selectedOfflineManagerItem!.name!,
+                                selectedOfflineManagerItem.employeeId!,
+                              );
+                              log('Offline Manager Id = ${selectedOfflineManagerItem.employeeId}');
+                              log('Offline Manager Name = ${selectedOfflineManagerItem.name}');
+                            }
+                          },
+                          items:
+                              empData?.map<DropdownMenuItem<String>>((value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value.name,
+                                      child: Text(value.name!),
+                                    );
+                                  }).toList() ??
+                                  offLineData!
+                                      .map<DropdownMenuItem<String>>((value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value.name,
+                                      child: Text(value.name!),
+                                    );
+                                  }).toList());
                 }),
                 const SizedBox(
                   height: 45,
@@ -250,7 +260,8 @@ class AddTodos extends StatelessWidget {
                       controller.insertTodo(
                         empid: connController.isConnected.value == true
                             ? dropDownController.selectedEmployeeId.value
-                            : dropDownController.selectedManagerOfflineId.value,
+                            : dropDownController
+                                .selectedEmployeeOfflineId.value,
                         manageId: connController.isConnected.value == true
                             ? dropDownController.selectedManagerialId.value
                             : dropDownController.selectedManagerOfflineId.value,

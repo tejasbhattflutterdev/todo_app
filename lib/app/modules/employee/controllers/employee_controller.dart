@@ -10,15 +10,19 @@ class EmployeeController extends GetxController {
   Rx<EmployeeModal> empData = EmployeeModal().obs;
   Rx<EmployeeModal> empDataFromLocalStorage = EmployeeModal().obs;
   Rx<EmployeeModal?> offLineData = EmployeeModal().obs;
+  RxBool isLoading = true.obs;
   // TodoSharedPrefStorage todoSharedPrefStorage = TodoSharedPrefStorage();
   fetchAllEmployees() async {
     final eData = await empRepo.getAllEployees();
+    isLoading.value = true;
+
     if (eData != null) {
       empData.value = eData;
       // update();
 
       TodoSharedPrefStorage.saveEmployeeData(eData);
       loadEmployeeData();
+      isLoading.value = false;
     }
   }
 
